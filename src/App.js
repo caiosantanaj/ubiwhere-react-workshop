@@ -1,32 +1,28 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import './styles.css';
-import { breedsList } from './breedsList';
-import Race from './Race';
+import Navbar from './components/layout/Navbar';
+import Home from './components/Pages/Home';
+import Breed from './components/Pages/Breed';
 //const RANDOM_IMAGE_FROM_BREED_URL = https://dog.ceo/api/breed/%nome_da_raça%/images/random
 
 const App = () => {
   // const [counterImage, setCounterImage] = useState(0);
   // const [randomStringArray, setRandomStringArray] = useState([1, 2, 3]);
 
-  const shuffleRaces = (races) => {
-    return races.sort(() => Math.random() - 0.5);
-  };
-
-  // console.log(breedsList);
-  shuffleRaces(breedsList);
-
   return (
-    <div className='container'>
-      <nav className='navbar welcome-text'>Ubiwhere's React workshop</nav>
+    <Router>
+      <div className='container'>
+        <Navbar />
 
-      {/* <p className="welcome-text">{this.state.counterImages}</p> */}
-      <div className='wrapper'>
-        {breedsList.slice(0, 12).map((raca) => (
-          <Race key={`raca${raca}`} raca={raca} />
-        ))}
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/breed/:breed' component={Breed} />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 };
 

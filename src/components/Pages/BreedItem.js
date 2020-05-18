@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import logo from './utils/img/drawing.svg';
+import imageNotFound from '../../utils/img/404image.svg';
 
-const Race = ({ raca }) => {
+const BreedItem = ({ raca }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   const getBreedImage = async (breed) => {
@@ -15,7 +16,9 @@ const Race = ({ raca }) => {
       // console.log(response.data);
 
       let image =
-        response.data.message == null || '' ? logo : response.data.message;
+        response.data.message == null || ''
+          ? imageNotFound
+          : response.data.message;
 
       setImageUrl(image);
     } catch (error) {
@@ -44,10 +47,12 @@ const Race = ({ raca }) => {
 
   return (
     <div className='main-content'>
-      <p className='race-text'>{raca}</p>
+      <Link to={`/breed/${raca}`}>
+        <p className='race-text'>{raca}</p>
+      </Link>
       {imageUrl !== '' && <img src={imageUrl} alt={raca} loading='lazy' />}
     </div>
   );
 };
 
-export default Race;
+export default BreedItem;
